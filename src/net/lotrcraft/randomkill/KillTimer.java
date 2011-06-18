@@ -12,6 +12,7 @@ public class KillTimer implements Runnable{
         this.p = p;
     }
     public void run() {
+    	
         Player[] players = Bukkit.getServer().getOnlinePlayers();
         players[new Random().nextInt(players.length)].damage(Integer.MAX_VALUE);
         int randomnumber = RKMain.randomnumber;
