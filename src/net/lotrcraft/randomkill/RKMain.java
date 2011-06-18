@@ -13,6 +13,7 @@ import org.bukkit.event.Event;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class RKMain extends JavaPlugin{
+	public static int randomnumber;
 	File file =new File("//RandomKill//config.yml");
 	Logger log = Logger.getLogger("minecraft");
 	//ConfigurationNode timeamt = this.getConfiguration();
@@ -48,7 +49,7 @@ public class RKMain extends JavaPlugin{
 		config.setHeader("Version 0.1");
 		int max = config.getInt("maximum", 120);
 		int min = config.getInt("minimum", 60);
-		int randomnumber = r.nextInt((max - min) * 20) + min * 20;
+		randomnumber = r.nextInt((max - min) * 20) + min * 20;
 		int a;
 	}
 	
