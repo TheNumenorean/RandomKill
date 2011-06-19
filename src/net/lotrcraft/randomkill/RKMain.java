@@ -9,13 +9,14 @@ public class RKMain extends JavaPlugin{
 	//File file =new File("//RandomKill//config.yml");
 	Logger log = Logger.getLogger("minecraft");
 	//ConfigurationNode timeamt = this.getConfiguration();
-	Configuration config = this.getConfiguration();
+	Configuration config;
 	
 	public void onDisable() {
 		log.info("RandomKill Disabled.");
 	}
 
 	public void onEnable() {
+		config = this.getConfiguration();
 		// TODO Auto-generated method stub
 		this.getServer().getPluginManager();
 		log.info("RandomKill Enabled.");
