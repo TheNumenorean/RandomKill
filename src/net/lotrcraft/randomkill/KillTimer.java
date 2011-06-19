@@ -16,6 +16,6 @@ public class KillTimer implements Runnable{
 		int randomnumber = r.nextInt((RKMain.max - RKMain.min) * 20) + RKMain.min * 20;
         Player[] players = Bukkit.getServer().getOnlinePlayers();
         players[new Random().nextInt(players.length)].damage(Integer.MAX_VALUE);
-		Bukkit.getServer().getScheduler().registerSyncDelayedTask(p, new WarnTimer(p), randomnumber );
+		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(p, new WarnTimer(p), randomnumber );
     }
 }
