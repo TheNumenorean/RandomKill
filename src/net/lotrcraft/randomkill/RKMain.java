@@ -14,7 +14,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class RKMain extends JavaPlugin{
 	public static int randomnumber, max, min;
-	File file =new File("//RandomKill//config.yml");
+	//File file =new File("//RandomKill//config.yml");
 	Logger log = Logger.getLogger("minecraft");
 	//ConfigurationNode timeamt = this.getConfiguration();
 	Configuration config = this.getConfiguration();
@@ -29,10 +29,10 @@ public class RKMain extends JavaPlugin{
 		// TODO Auto-generated method stub
 		this.getServer().getPluginManager();
 		log.info("RandomKill Enabled.");
-		if(!file.exists()){
-			System.out.println("[RandomKill] Config doesnt exist or is outdated. Creating...");
+		//if(config.()){
+		//	System.out.println("[RandomKill] Config doesnt exist or is outdated. Creating...");
 			//file.getParentFile().mkdir();
-		}
+		//}
 		if (config.getInt("minimum", 0) <= 0) {
 			config.setProperty("minimum", 60);
 		}
@@ -44,8 +44,8 @@ public class RKMain extends JavaPlugin{
 			config.setProperty("maximum", config.getInt("minimum", 0));
 			config.setProperty("minimum", max);
 		}
-		config.save();
 		config.setHeader("Version 0.1");
+		config.save();
 		max = config.getInt("maximum", 120);
 		min = config.getInt("minimum", 60);
 		this.getServer().getScheduler().scheduleSyncDelayedTask(this, new WarnTimer(this), 20 * 30);
