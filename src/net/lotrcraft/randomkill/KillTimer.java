@@ -17,13 +17,12 @@ public class KillTimer implements Runnable{
     public void run() {
 		int randomnumber = r.nextInt((RKMain.max - RKMain.min) * 20) + RKMain.min * 20;
         Player[] players = Bukkit.getServer().getOnlinePlayers();
-        log.info(players + "");
         if (players.length != 0){
         	players[new Random().nextInt(players.length)].damage(100);
         	Bukkit.getServer().broadcastMessage("A Sacrifice has been chosen!");
-        	log.info("DOOOOOOMMM");
+        	log.info("[RandomKill] A player has been exterminated.");
         } else log.info("[RandomKill] No players to kill.");
-        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(p, new KillTimer(p), randomnumber );
+        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(p, new WarnTimer(p), randomnumber - 600);
         
 		
     }
