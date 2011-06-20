@@ -1,5 +1,6 @@
 package net.lotrcraft.randomkill;
 
+import java.util.Random;
 import java.util.logging.Logger;
 import org.bukkit.util.config.*;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -8,6 +9,7 @@ public class RKMain extends JavaPlugin{
 	public static int randomnumber, max, min;
 	//File file =new File("//RandomKill//config.yml");
 	Logger log = Logger.getLogger("minecraft");
+	Random r = new Random();
 	//ConfigurationNode timeamt = this.getConfiguration();
 	Configuration config;
 	
@@ -24,22 +26,23 @@ public class RKMain extends JavaPlugin{
 		//	System.out.println("[RandomKill] Config doesnt exist or is outdated. Creating...");
 			//file.getParentFile().mkdir();
 		//}
-		if (config.getInt("minimum", 0) <= 0) {
+		if (config.getInt("minimum", 60) <= 0) {
 			config.setProperty("minimum", 60);
 		}
-		if (config.getInt("maximum", 0) <= 0) {
+		if (config.getInt("maximum", 120) <= 0) {
 			config.setProperty("maximum", 120);
 		}
-		if (config.getInt("maximum", 0) < config.getInt("minimum", 0)) {
-			int max = config.getInt("maximum", 0);
-			config.setProperty("maximum", config.getInt("minimum", 0));
+		if (config.getInt("maximum", 120) < config.getInt("minimum", 60)) {
+			int max = config.getInt("maximum", 120);
+			config.setProperty("maximum", config.getInt("minimum", 60));
 			config.setProperty("minimum", max);
 		}
-		config.setHeader("Version 0.1");
+		//config.setHeader("Version 0.1");
 		config.save();
 		max = config.getInt("maximum", 120);
 		min = config.getInt("minimum", 60);
-		this.getServer().getScheduler().scheduleSyncDelayedTask(this, new WarnTimer(this), 20 * 30);
+		int randomnumber = r.nextInt((max - min) * 20) + min * 20;
+		this.getServer().getScheduler().scheduleSyncDelayedTask(this, new KillTimer(this), randomnumber);
 		//Hello!
 	}
 	
