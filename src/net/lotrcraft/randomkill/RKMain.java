@@ -40,6 +40,7 @@ public class RKMain extends JavaPlugin{
 		max = config.getInt("maximum", 120);
 		min = config.getInt("minimum", 60);
 		this.getServer().getScheduler().scheduleSyncDelayedTask(this, new WarnTimer(this), 20 * 30);
+		//Hello!
 	}
 	
 }
