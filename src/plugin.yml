@@ -2,3 +2,6 @@ main: net.lotrcraft.randomkill.RKMain
 author: numenorean95
 name: RandomKill
 version: 0.1
+commands:
+    rk:
+        usage: This takes 2 parameters - use /<command> add/remove/kill (player)
