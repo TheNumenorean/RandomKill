@@ -34,7 +34,6 @@ public class RKMain extends JavaPlugin{
 
 	public void onEnable() {
 		config = this.getConfiguration();
-		// TODO Auto-generated method stub
 		this.getServer().getPluginManager();
 		log.info("RandomKill Enabled.");
 		//if(config.()){
@@ -73,13 +72,13 @@ public class RKMain extends JavaPlugin{
 	}
 	
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		log.info(args[0]);
-		Player a = (Player) sender;
-		if (args.length > 2 || args.length < 0){
+		//log.info(args[0]);
+		if (args.length > 2 || args.length <= 0){
 			return false;
 		}
+		if (!(sender instanceof ConsoleCommandSender)){
 		if (args[0].equals("add")){
-			if (!RKMain.permissionHandler.has(a, "RK.list.add") && !(sender instanceof ConsoleCommandSender)){
+			if (!RKMain.permissionHandler.has((Player) sender, "RK.list.add")){
 				sender.sendMessage("[RandomKill] You dont have permission to use this command!");
 				return true;
 			}
@@ -94,7 +93,7 @@ public class RKMain extends JavaPlugin{
 			return true;
 		}
 		if (args[0].equals("remove")){
-			if (!RKMain.permissionHandler.has(a, "RK.list.remove") && !(sender instanceof ConsoleCommandSender)){
+			if (!RKMain.permissionHandler.has((Player) sender, "RK.list.remove") && !(sender instanceof ConsoleCommandSender)){
 				sender.sendMessage("[RandomKill] You dont have permission to use this command!");
 				return true;
 			}
@@ -109,12 +108,50 @@ public class RKMain extends JavaPlugin{
 			return true;
 		}
 		if(args[0].equals("kill")){
-			if (!RKMain.permissionHandler.has(a, "RK.kill") && !(sender instanceof ConsoleCommandSender)){
+			if (!RKMain.permissionHandler.has((Player) sender, "RK.kill") && !(sender instanceof ConsoleCommandSender)){
 				sender.sendMessage("[RandomKill] You dont have permission to use this command!");
 				return true;
 			}
 			Player p = Bukkit.getServer().matchPlayer(args[1]).get(0);
 			p.damage(100);
+			return true;
+		}
+		return false;
+		}
+		
+		
+		
+		if (args[0].equals("add")){
+			if (players.contains(args[1])){
+				log.info("[RandomKill] This player already added.");
+				return true;
+			}
+			players.add(args[1]);
+			config.setProperty("Players", players);
+			config.save();
+			log.info("[RandomKill] Player " + args[1] + " added.");
+			return true;
+		}
+		if (args[0].equals("remove")){
+			if (!players.contains(args[1])){
+				log.info("[RandomKill] Player not found.");
+				return true;
+			}
+			players.remove(args[1]);
+			config.setProperty("Players", players);
+			config.save();
+			log.info("[RandomKill] Player " + args[1] + " removed.");
+			return true;
+		}
+		if(args[0].equals("kill")){
+			if (Bukkit.getServer().matchPlayer(args[1]) == null){
+				log.info("[RandomKill] Player not found.");
+				return true;
+			}
+			Player p = Bukkit.getServer().matchPlayer(args[1]).get(0);
+			p.damage(100);
+			log.info("[RandomKill] Player " + args[1] + " killed.");
+			return true;
 		}
 		return false;
 	}
