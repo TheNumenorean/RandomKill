@@ -93,7 +93,7 @@ public class RKMain extends JavaPlugin{
 			return true;
 		}
 		if (args[0].equals("remove")){
-			if (!RKMain.permissionHandler.has((Player) sender, "RK.list.remove") && !(sender instanceof ConsoleCommandSender)){
+			if (!RKMain.permissionHandler.has((Player) sender, "RK.list.remove")){
 				sender.sendMessage("[RandomKill] You dont have permission to use this command!");
 				return true;
 			}
@@ -108,12 +108,26 @@ public class RKMain extends JavaPlugin{
 			return true;
 		}
 		if(args[0].equals("kill")){
-			if (!RKMain.permissionHandler.has((Player) sender, "RK.kill") && !(sender instanceof ConsoleCommandSender)){
+			if (!RKMain.permissionHandler.has((Player) sender, "RK.kill")){
 				sender.sendMessage("[RandomKill] You dont have permission to use this command!");
 				return true;
 			}
-			Player p = Bukkit.getServer().matchPlayer(args[1]).get(0);
+			Player p = null;
+			try{
+				p = Bukkit.getServer().matchPlayer(args[1]).get(0);
+			} catch(IndexOutOfBoundsException e){
+				sender.sendMessage("[RandomKill] Player not found.");
+				return true;
+			}
 			p.damage(100);
+			return true;
+		}
+		if(args[0].equals("list")){
+			if (!RKMain.permissionHandler.has((Player) sender, "RK.list")){
+				sender.sendMessage("[RandomKill] You dont have permission to use this command!");
+				return true;
+			}
+			sender.sendMessage("[RandomKill] Players on the hit list:/n" + players);
 			return true;
 		}
 		return false;
@@ -148,9 +162,19 @@ public class RKMain extends JavaPlugin{
 				log.info("[RandomKill] Player not found.");
 				return true;
 			}
-			Player p = Bukkit.getServer().matchPlayer(args[1]).get(0);
+			Player p = null;
+			try{
+				p = Bukkit.getServer().matchPlayer(args[1]).get(0);
+			} catch(IndexOutOfBoundsException e){
+				log.info("[RandomKill] Player not found.");
+				return true;
+			}
 			p.damage(100);
 			log.info("[RandomKill] Player " + args[1] + " killed.");
+			return true;
+		}
+		if(args[0].equals("list")){
+			log.info("[RandomKill] Players on the hit list:/n" + players);
 			return true;
 		}
 		return false;

@@ -1,5 +1,8 @@
 package net.lotrcraft.randomkill;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Random;
 import java.util.logging.Logger;
 
@@ -18,22 +21,45 @@ public class KillTimer implements Runnable{
     public void run() {
 		int randomnumber = r.nextInt((RKMain.max - RKMain.min) * 20) + RKMain.min * 20;
         Player[] onlineplayers = Bukkit.getServer().getOnlinePlayers();
-        for (int i = 0; i <= onlineplayers.length; i++){
-        	
-        }
         
-        if (onlineplayers.length != 0){
-        	Player sac = onlineplayers[new Random().nextInt(onlineplayers.length)];
-        	Bukkit.getServer().broadcastMessage("A Sacrifice has been chosen!");
-        	log.info("[RandomKill] A player has been exterminated.");
-        } else log.info("[RandomKill] No players to kill.");
-        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(p, new WarnTimer(p), randomnumber - 600);
-        /*
-         *   if (!(MyPlugin).permissionHandler.has(player, "a.custom.node")) {
-      return;
-  }
+        if (RKMain.useList == false){
+        	if (onlineplayers.length != 0){
+        		Player sac = onlineplayers[new Random().nextInt(onlineplayers.length)];
+        		sac.damage(20);
+        		Bukkit.getServer().broadcastMessage("A Sacrifice has been chosen!");
+        		log.info("[RandomKill] A player has been exterminated.");
+        	} else log.info("[RandomKill] No players to kill.");
+        } else {
+        	if (onlineplayers.length != 0){
+        		List<Player> pd = new ArrayList<Player>();
+        		for(Player pl : Bukkit.getServer().getOnlinePlayers()) {
+        		if(pd.contains(pl.getName())) {
+        		pd.add(pl);
+        		}
+        		}
+        		
+        		
+        		
+        		
+        		/*
+        		List<Player> list;
+        		Collection onpl;
+        		onpl.add(onlineplayers);
+        		list.retainAll(onpl);
 
-         */
+        		for (int i=0; i<list.size(); i++){
+        			Player a = Bukkit.getServer().getPlayer(list[i]);
+        			
+        		}
+        		Player[] saclist = list.;*/
+        		Player sac = Bukkit.getServer().getPlayer(pd[new Random().nextInt(pd.length)]);
+        		sac.damage(20);
+        		Bukkit.getServer().broadcastMessage("A Sacrifice has been chosen!");
+        		log.info("[RandomKill] A player has been exterminated.");
+        	} else log.info("[RandomKill] No players to kill.");
+        }
+    	Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(p, new WarnTimer(p), randomnumber - 600);
+
 		
     }
 }
