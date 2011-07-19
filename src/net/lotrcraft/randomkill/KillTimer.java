@@ -1,7 +1,6 @@
 package net.lotrcraft.randomkill;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Logger;
@@ -52,7 +51,8 @@ public class KillTimer implements Runnable{
         			
         		}
         		Player[] saclist = list.;*/
-        		Player sac = Bukkit.getServer().getPlayer(pd[new Random().nextInt(pd.length)]);
+  
+        		Player sac = pd.get(new Random().nextInt(pd.size()));
         		sac.damage(20);
         		Bukkit.getServer().broadcastMessage("A Sacrifice has been chosen!");
         		log.info("[RandomKill] A player has been exterminated.");
