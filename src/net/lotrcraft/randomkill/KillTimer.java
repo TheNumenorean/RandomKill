@@ -21,41 +21,29 @@ public class KillTimer implements Runnable{
 		int randomnumber = r.nextInt((RKMain.max - RKMain.min) * 20) + RKMain.min * 20;
         Player[] onlineplayers = Bukkit.getServer().getOnlinePlayers();
         
-        if (RKMain.useList == false){
-        	if (onlineplayers.length != 0){
-        		Player sac = onlineplayers[new Random().nextInt(onlineplayers.length)];
+        if (!RKMain.useList){                                                              //Test if Hit List should be used. If not...
+        	if (onlineplayers.length != 0){                                                //Check to make sure there is anyone to kill
+        		Player sac = onlineplayers[new Random().nextInt(onlineplayers.length)];    //Get a random player
         		sac.damage(20);
         		Bukkit.getServer().broadcastMessage("A Sacrifice has been chosen!");
         		log.info("[RandomKill] A player has been exterminated.");
         	} else log.info("[RandomKill] No players to kill.");
         } else {
-        	if (onlineplayers.length != 0){
+        	if (onlineplayers.length != 0){ 
         		List<Player> pd = new ArrayList<Player>();
-        		for(Player pl : Bukkit.getServer().getOnlinePlayers()) {
-        		if(pd.contains(pl.getName())) {
-        		pd.add(pl);
+        		for(Player pl : Bukkit.getServer().getOnlinePlayers()) {// Thanks BR_
+        			if(RKMain.players.contains(pl.getName())) {
+        				pd.add(pl);
+        			}
         		}
-        		}
-        		
-        		
-        		
-        		
-        		/*
-        		List<Player> list;
-        		Collection onpl;
-        		onpl.add(onlineplayers);
-        		list.retainAll(onpl);
-
-        		for (int i=0; i<list.size(); i++){
-        			Player a = Bukkit.getServer().getPlayer(list[i]);
-        			
-        		}
-        		Player[] saclist = list.;*/
+        		if (pd.size() !=0){
   
-        		Player sac = pd.get(new Random().nextInt(pd.size()));
-        		sac.damage(20);
-        		Bukkit.getServer().broadcastMessage("A Sacrifice has been chosen!");
-        		log.info("[RandomKill] A player has been exterminated.");
+        			Player sac = pd.get(new Random().nextInt(pd.size()));
+        			sac.damage(20);
+        			Bukkit.getServer().broadcastMessage("A Sacrifice has been chosen!");
+        			log.info("[RandomKill] A player has been exterminated.");
+        		}else log.info("[RandomKill] No players on the list to kill.");
+        		
         	} else log.info("[RandomKill] No players to kill.");
         }
     	Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(p, new WarnTimer(p), randomnumber - 600);

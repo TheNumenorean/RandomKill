@@ -59,7 +59,7 @@ public class RKMain extends JavaPlugin{
 		}
 		players = config.getStringList("Players", null);
 		
-		config.setHeader("#Version 0.1");
+		config.setHeader("#Version 0.2");
 		config.save();
 		useList = config.getBoolean("useList", false); 
 		max = config.getInt("maximum", 120);
@@ -114,12 +114,13 @@ public class RKMain extends JavaPlugin{
 			}
 			Player p = null;
 			try{
-				p = Bukkit.getServer().matchPlayer(args[1]).get(0);
+				p = Bukkit.getServer().getPlayer(args[1]);
+				p.damage(100);
 			} catch(IndexOutOfBoundsException e){
 				sender.sendMessage("[RandomKill] Player not found.");
 				return true;
 			}
-			p.damage(100);
+
 			return true;
 		}
 		if(args[0].equals("list")){
@@ -158,13 +159,9 @@ public class RKMain extends JavaPlugin{
 			return true;
 		}
 		if(args[0].equals("kill")){
-			if (Bukkit.getServer().matchPlayer(args[1]) == null){
-				log.info("[RandomKill] Player not found.");
-				return true;
-			}
 			Player p = null;
 			try{
-				p = Bukkit.getServer().matchPlayer(args[1]).get(0);
+				p = Bukkit.getServer().getPlayer(args[1]);
 			} catch(IndexOutOfBoundsException e){
 				log.info("[RandomKill] Player not found.");
 				return true;
@@ -174,7 +171,7 @@ public class RKMain extends JavaPlugin{
 			return true;
 		}
 		if(args[0].equals("list")){
-			log.info("[RandomKill] Players on the hit list:/n" + players);
+			log.info("[RandomKill] Players on the hit list: " + players);
 			return true;
 		}
 		return false;
