@@ -24,6 +24,7 @@ public class KillTimer implements Runnable{
         if (!RKMain.useList){                                                              //Test if Hit List should be used. If not...
         	if (onlineplayers.length != 0){                                                //Check to make sure there is anyone to kill
         		Player sac = onlineplayers[new Random().nextInt(onlineplayers.length)];    //Get a random player
+        		sac.getLocation().getWorld().strikeLightning(sac.getLocation());
         		sac.damage(20);
         		Bukkit.getServer().broadcastMessage("A Sacrifice has been chosen!");
         		log.info("[RandomKill] A player has been exterminated.");
